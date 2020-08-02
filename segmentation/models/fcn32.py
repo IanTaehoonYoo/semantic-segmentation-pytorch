@@ -4,9 +4,6 @@ FCN32 class.
 Library:	Tensowflow 2.2.0, pyTorch 1.5.1
 Author:		Ian Yoo
 Email:		thyoostar@gmail.com
-
-First date:		2020-07-17
-Last modify:	2020-07-17
 """
 from __future__ import absolute_import, division, print_function
 

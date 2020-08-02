@@ -4,9 +4,6 @@ Dataset class.
 Library:	Tensowflow 2.2.0, pyTorch 1.5.1, OpenCV-Python 4.1.1.26
 Author:		Ian Yoo
 Email:		thyoostar@gmail.com
-
-First date:		2020-07-15
-Last modify:	2020-07-15
 """
 from __future__ import absolute_import, print_function, division
 import os

@@ -4,9 +4,6 @@ Validation functions. Follow functions are able to get scalar values for the val
 Library:	Tensowflow 2.2.0, pyTorch 1.5.1
 Author:		Ian Yoo
 Email:		thyoostar@gmail.com
-
-First date:		2020-07-02
-Last modify:	2020-07-02
 """
 from __future__ import absolute_import, division, print_function
 

@@ -4,9 +4,6 @@ imshow function. This is useful to see an tiled image.
 Library:	Tensowflow 2.2.0, pyTorch 1.5.1, OpenCV-Python 4.1.1.26, PIL
 Author:		Ian Yoo
 Email:		thyoostar@gmail.com
-
-First date:		2020-06-05
-Last modify:	2020-06-05
 """
 from __future__ import absolute_import, division, print_function
 
