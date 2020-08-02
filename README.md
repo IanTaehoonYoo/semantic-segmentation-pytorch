@@ -9,7 +9,7 @@ Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
 This project supports models as follow:
 
 | model name          | encoder model       | decoder model       |
-|---------------------|---------------------|---------------------|
+|:-------------------:|:-------------------:|:-------------------:|
 | fcn8_vgg11          | VGG 11              | FCN8                |
 | fcn8_vgg13          | VGG 13              | FCN8                |
 | fcn8_vgg16          | VGG 16              | FCN8                |
@@ -62,6 +62,9 @@ This project supports models as follow:
 | pspnet_resnet152    | Resnet-152          | PSPNet              |
 | pspnet_mobilenet_v2 | MobileNet-v2        | PSPNet              |
 
+Example results of the pspnet_mobilenet_v2 model:
+
+Input Image
 ## Requirements
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
@@ -85,4 +88,4 @@ python setup.py install
 
 ## Cite This Project
 
-If you use our code in a publicly available project, please add the link here
+If you use this in a publicly available project, please add the link here
