@@ -7,8 +7,8 @@ Email:		thyoostar@gmail.com
 """
 from __future__ import absolute_import, division, print_function
 
-from ..util.validation import *
-from ..util.logger import *
+from util.validation import *
+from util.logger import *
 
 try:
     from tqdm import tqdm
@@ -148,13 +148,13 @@ class Trainer(object):
             #write logs to Tensorboard.
             lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]
             lbl_true = target.data.cpu().numpy()
-            acc, acc_cls, mean_iu, fwavacc = \
+            acc, acc_cls, mean_iou, fwavacc = \
                 label_accuracy_score(lbl_true, lbl_pred, n_class=score.shape[1])
 
             self.logger.log_train(loss, 'loss', self.epoch, n_batch, num_batches)
             self.logger.log_train(acc, 'acc', self.epoch, n_batch, num_batches)
             self.logger.log_train(acc_cls, 'acc_cls', self.epoch, n_batch, num_batches)
-            self.logger.log_train(mean_iu, 'mean_iu', self.epoch, n_batch, num_batches)
+            self.logger.log_train(mean_iou, 'mean_iou', self.epoch, n_batch, num_batches)
             self.logger.log_train(fwavacc, 'fwavacc', self.epoch, n_batch, num_batches)
 
             #write result images when starting epoch.
@@ -194,13 +194,13 @@ class Trainer(object):
 
         lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]
         lbl_true = target.data.cpu().numpy()
-        acc, acc_cls, mean_iu, fwavacc = \
+        acc, acc_cls, mean_iou, fwavacc = \
             label_accuracy_score(lbl_true, lbl_pred, n_class=score.shape[1])
 
         self.logger.log_test(loss, 'loss', self.epoch, n_batch, num_batches)
         self.logger.log_test(acc, 'acc', self.epoch, n_batch, num_batches)
         self.logger.log_test(acc_cls, 'acc_cls', self.epoch, n_batch, num_batches)
-        self.logger.log_test(mean_iu, 'mean_iou', self.epoch, n_batch, num_batches)
+        self.logger.log_test(mean_iou, 'mean_iou', self.epoch, n_batch, num_batches)
         self.logger.log_test(fwavacc, 'fwavacc', self.epoch, n_batch, num_batches)
 
         if n_batch == 0:
