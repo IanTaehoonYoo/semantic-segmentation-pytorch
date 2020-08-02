@@ -88,6 +88,3 @@ cd semantic-segmentation-pytorch
 python setup.py install
 ```
 
-## Cite This Project
-
-If you use this in a publicly available project, please add the link here
