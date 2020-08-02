@@ -1,4 +1,4 @@
-# semantic-segmentation-pytorch : 
+# Semantic-Segmentation-Pytorch
 
 [![PyPI Version](https://img.shields.io/pypi/v/seg-torch.svg)](https://pypi.org/project/seg-torch)
 
@@ -64,12 +64,14 @@ This project supports models as follow:
 
 Example results of the pspnet_mobilenet_v2 model:
 
-Input Image
+Input Image            |  Output Segmentation Image
+:-------------------------:|:-------------------------:
+![](segmentation\test\exam_result\input.jpg)  |  ![](segmentation\test\exam_result\output.png)
 ## Requirements
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
 - [torchvision](https://github.com/pytorch/vision) >= 0.6.0
-- [opencv-python]
+- opencv-python
 - [tqdm](https://github.com/tqdm/tqdm)
 
 ## Install
@@ -86,6 +88,3 @@ cd semantic-segmentation-pytorch
 python setup.py install
 ```
 
-## Cite This Project
-
-If you use this in a publicly available project, please add the link here
