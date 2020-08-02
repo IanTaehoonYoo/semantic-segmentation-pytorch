@@ -9,7 +9,7 @@ Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
 This project supports models as follow:
 
 | model name          | encoder model       | decoder model       |
-|=====================|=====================|=====================|
+|---------------------|---------------------|---------------------|
 | fcn8_vgg11          | VGG 11              | FCN8                |
 | fcn8_vgg13          | VGG 13              | FCN8                |
 | fcn8_vgg16          | VGG 16              | FCN8                |
@@ -37,9 +37,9 @@ This project supports models as follow:
 | fcn32_resnet50      | Resnet-50           | FCN32               |
 | fcn32_resnet101     | Resnet-101          | FCN32               |
 | fcn32_resnet152     | Resnet-152          | FCN32               |
-| fcn8_mobilenet_v2   | MobileNet           | FCN8                |
-| fcn16_mobilenet_v2  | MobileNet           | FCN16               |
-| fcn32_mobilenet_v2  | MobileNet           | FCN32               |
+| fcn8_mobilenet_v2   | MobileNet-v2        | FCN8                |
+| fcn16_mobilenet_v2  | MobileNet-v2        | FCN16               |
+| fcn32_mobilenet_v2  | MobileNet-v2        | FCN32               |
 | unet                | None                | Unet                |
 | unet_vgg11          | VGG11               | Unet                |
 | unet_vgg13          | VGG13               | Unet                |
@@ -50,7 +50,7 @@ This project supports models as follow:
 | unet_resnet50       | Resnet-50           | Unet                |
 | unet_resnet101      | Resnet-101          | Unet                |
 | unet_resnet152      | Resnet-152          | Unet                |
-| unet_mobilenet_v2   | MobileNet           | Unet                |
+| unet_mobilenet_v2   | MobileNet-v2        | Unet                |
 | pspnet_vgg11        | VGG11               | PSPNet              |
 | pspnet_vgg13        | VGG13               | PSPNet              |
 | pspnet_vgg16        | VGG16               | PSPNet              |
@@ -60,7 +60,7 @@ This project supports models as follow:
 | pspnet_resnet50     | Resnet-50           | PSPNet              |
 | pspnet_resnet101    | Resnet-101          | PSPNet              |
 | pspnet_resnet152    | Resnet-152          | PSPNet              |
-| pspnet_mobilenet_v2 | MobileNet           | PSPNet              |
+| pspnet_mobilenet_v2 | MobileNet-v2        | PSPNet              |
 
 ## Requirements
 
