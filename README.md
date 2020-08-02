@@ -69,7 +69,7 @@ Input Image
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
 - [torchvision](https://github.com/pytorch/vision) >= 0.6.0
-- [opencv-python]
+- opencv-python
 - [tqdm](https://github.com/tqdm/tqdm)
 
 ## Install
