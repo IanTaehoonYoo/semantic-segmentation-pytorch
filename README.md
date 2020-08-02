@@ -12,17 +12,17 @@ Pytorch implementation of FCN, UNet, PSPNet and various backbone models.
 
 ## Install
 
-'''shell
+```shell
 pip install seg-torch
-'''
+```
 
 or
 
-'''shell
+```shell
 git clone https://github.com/IanTaehoonYoo/semantic-segmentation-pytorch/
 cd semantic-segmentation-pytorch
 python setup.py install
-'''
+```
 
 ## Cite This Project
 
