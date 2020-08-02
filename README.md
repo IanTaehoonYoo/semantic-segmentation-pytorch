@@ -1,4 +1,4 @@
-# semantic-segmentation-pytorch
+# Semantic-Segmentation-Pytorch
 
 [![PyPI Version](https://img.shields.io/pypi/v/seg-torch.svg)](https://pypi.org/project/seg-torch)
 
