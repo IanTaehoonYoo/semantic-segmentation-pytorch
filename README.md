@@ -69,7 +69,7 @@ This project supports models as follow:
 
 Example results of the pspnet_mobilenet_v2 model:
 
-Input Image            |  Ground Truth image    | Result Image      |
+Input Image            |  Ground Truth Image    | Result Image      |
 :-------------------------:|:-------------------------:|:-------------------------:|
 ![](exam_result/input1.png)  |  ![](exam_result/ground_truth1.png)  |  ![](exam_result/result1.png)
 ![](exam_result/input2.png)  |  ![](exam_result/ground_truth2.png)  |  ![](exam_result/result2.png)
