@@ -199,7 +199,9 @@ This project uses pre-trained models such as VGG, ResNet and MobileNet from the 
 ### Getting the learning result on Tensorboard .
 
 The Logger class is to write the result such as mean IoU, accuracy, loss, and predict labeled images. The logger class gets the model name and the data name. So, it can generate the tensorboard files automatically in the runs folder, .\segmentation\runs\..
+
 Here is example command to see the result, [tensorboard --logdir=%project_path\segmentation\runs --host localhost]
+
 If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www.tensorflow.org/tensorboard/get_started)
 
 ## Cite This Project
