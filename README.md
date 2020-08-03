@@ -98,11 +98,11 @@ python setup.py install
 ```
 ### Preparing the data for training
 
-In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using other dataset, please refer to the dataset format as bellow.
+In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using another dataset, please refer to the dataset format as bellow.
 
 1. There are two folders which are the training images folder and the groundtruth labeled images folder.
-2. The training image and the labeled image must have same file name and size.
-3. The training image must be the RGB image, and labeled image should have the class value, the range [0, n_classes].
+2. The training image and the labeled image must have the same file name and size.
+3. The training image must be the RGB image, and the labeled image should have the class value, the range [0, n_classes].
 
 ### Example code to use this project with python
 
@@ -174,7 +174,7 @@ if __name__ == '__main__':
 
 ### Pre-trained models (Encoder models)
 
-This project uses pre-trained models such as VGG, ResNet and MobileNet from the torchvision library. If you want fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling model. And then, you should set the optimizer to freeze model like as follow.
+This project uses pre-trained models such as VGG, ResNet, and MobileNet from the torchvision library. If you want the fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling a model. And then, you should set the optimizer to freeze model like as follow.
 
 ```python
     model = all_models.model_from_name[model_name](n_classes,
