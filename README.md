@@ -206,9 +206,12 @@ If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www
 
 ## Cite This Project
 If you find this code useful, please consider the following BibTeX entry.
+
+```bash
 @misc{seg-pytorch,
   author =       {Ian Yoo},
   title =        {{sementic-segmentation-pytorch: Pytorch implementation of FCN, UNet, PSPNet and various encoder models}},
   howpublished = {\url{https://github.com/IanTaehoonYoo/semantic-segmentation-pytorch}},
   year =         {2020}
 }
+```
