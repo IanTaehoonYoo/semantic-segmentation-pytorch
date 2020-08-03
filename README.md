@@ -203,7 +203,7 @@ The Logger class is to write the result such as mean IoU, accuracy, loss, and pr
 Here is example command to see the result
 
 ```python
-tensorboard --logdir=%project_path\segmentation\runs --host localhost]
+tensorboard --logdir=%project_path\segmentation\runs --host localhost
 ```
 
 If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www.tensorflow.org/tensorboard/get_started)
