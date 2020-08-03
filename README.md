@@ -4,6 +4,8 @@
 
 Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
 
+### FCN(FULLY CONVOLUTIONAL NETWORKS FOR SEMANTIC SEGMENTATION) [[Paper]](https://arxiv.org/abs/1411.4038)
+
 ## Models
 
 This project supports models as follow:
@@ -76,7 +78,9 @@ Input Image            |  Ground Truth image    | Result Image      |
 - opencv-python
 - [tqdm](https://github.com/tqdm/tqdm)
 
-## Install
+### Getting Started
+
+## Installation
 
 ```shell
 pip install seg-torch
