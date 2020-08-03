@@ -175,6 +175,10 @@ if __name__ == '__main__':
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
     trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
     trainer.train()
+    
+    # Writing a predicted result image.
+    predict(model, r'dataset/cityspaces/input.png',
+             r'dataset/cityspaces/output.png')
 ```
 
 ### Pre-trained models (Encoder models)
@@ -199,6 +203,7 @@ This project uses pre-trained models such as VGG, ResNet, and MobileNet from the
         optimizer = torch.optim.Adadelta(params_to_update)
     else:
         optimizer = torch.optim.Adadelta(model.parameters())
+        
 ```
 
 ### Getting the learning results on Tensorboard
