@@ -174,7 +174,7 @@ if __name__ == '__main__':
 
 ### Pre-trained models (Encoder models)
 
-This project uses pre-trained models such as VGG, ResNet, and MobileNet from the torchvision library. If you want the fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling a model. And then, you should set the optimizer to freeze model like as follow.
+This project uses pre-trained models such as VGG, ResNet, and MobileNet from the torchvision library. If you want the fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling a model. And then, you should set the optimizer to freeze the model like as follow.
 
 ```python
     model = all_models.model_from_name[model_name](n_classes,
