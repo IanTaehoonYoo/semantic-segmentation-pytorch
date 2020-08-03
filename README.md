@@ -196,7 +196,7 @@ This project uses pre-trained models such as VGG, ResNet and MobileNet from the 
         optimizer = torch.optim.Adadelta(model.parameters())
 ```
 
-### Getting the learning result on Tensorboard .
+### Getting the learning results on Tensorboard .
 
 The Logger class is to write the result such as mean IoU, accuracy, loss, and predict labeled images. The logger class gets the model name and the data name. So, it can generate the tensorboard files automatically in the runs folder, .\segmentation\runs\..
 
