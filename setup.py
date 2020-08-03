@@ -17,7 +17,7 @@ def get_long_description():
         return long_description
 
 setup(name="seg_torch",
-      version="0.1.1",
+      version="0.1.2",
       description="Semantic Segmentation with Pytorch",
       long_description=get_long_description(),
       long_description_content_type='text/markdown',
@@ -28,7 +28,7 @@ setup(name="seg_torch",
       url="https://github.com/IanTaehoonYoo/semantic-segmentation-pytorch",
       packages=find_packages(exclude=["segmentation/test/dataset"]),
       install_requires=[
-            "pytorch>=1.5.0",
+            "torch>=1.5.0",
             "torchvision>=0.5.0",
             "tensorboardX>=2.0"
             "opencv-python",
