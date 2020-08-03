@@ -3,6 +3,10 @@
 [![PyPI Version](https://img.shields.io/pypi/v/seg-torch.svg)](https://pypi.org/project/seg-torch)
 
 Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
+<p align="center">
+      <img src="docs/Thumbnail.png">
+      <br></br>
+</p>
 
 These are the reference implementation of the models.
 - FCN (Fully Convolutional Networks for Sementic Segmentation) [[Paper]](https://arxiv.org/abs/1411.4038)
@@ -71,8 +75,8 @@ Example results of the pspnet_mobilenet_v2 model:
 
 Input Image            |  Ground Truth Image    | Result Image      |
 :-------------------------:|:-------------------------:|:-------------------------:|
-![](exam_result/input1.png)  |  ![](exam_result/ground_truth1.png)  |  ![](exam_result/result1.png)
-![](exam_result/input2.png)  |  ![](exam_result/ground_truth2.png)  |  ![](exam_result/result2.png)
+![](docs/exam_result/input1.png)  |  ![](docs/exam_result/ground_truth1.png)  |  ![](docs/exam_result/result1.png)
+![](docs/exam_result/input2.png)  |  ![](docs/exam_result/ground_truth2.png)  |  ![](docs/exam_result/result2.png)
 
 ## Getting Started
 
