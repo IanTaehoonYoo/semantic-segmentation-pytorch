@@ -4,7 +4,10 @@
 
 Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
 
-### FCN(FULLY CONVOLUTIONAL NETWORKS FOR SEMANTIC SEGMENTATION) [[Paper]](https://arxiv.org/abs/1411.4038)
+These are the reference implementation fo the models.
+- FCN (Fully Convolutional Networks for Sementic Segmentation) [[Paper]](https://arxiv.org/abs/1411.4038)
+- UNet (Convolutional Networks for Biomedical Image Segmentation) [[Paper]](https://arxiv.org/abs/1505.04597)
+- PSPNet (Pyramid Scene Parsing Network) [[Paper]](https://arxiv.org/abs/1612.01105)
 
 ## Models
 
