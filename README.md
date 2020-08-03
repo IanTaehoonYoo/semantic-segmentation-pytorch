@@ -101,8 +101,8 @@ python setup.py install
 In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using other dataset, please refer to the dataset format as bellow.
 
 1. There are two folders which are the training images folder and the groundtruth labeled images folder.
-2. The training image and the labelled image must have same file name and size of the image to get pair.
-3. The training image must be the RGB image, and labeled image should have the class value, the range [0, n_classes]
+2. The training image and the labeled image must have same file name and size.
+3. The training image must be the RGB image, and labeled image should have the class value, the range [0, n_classes].
 
 ### Example code to use this project with python
 
