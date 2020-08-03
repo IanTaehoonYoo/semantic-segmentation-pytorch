@@ -98,7 +98,7 @@ python setup.py install
 ```
 ### Preparing the data for training
 
-In this project, the data for training is the [[Cityspaces]](http://https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using other dataset, please refer to the dataset format as bellow.
+In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using other dataset, please refer to the dataset format as bellow.
 
 1. There are two folders which are the training images folder and the groundtruth labeled images folder.
 2. The training image and the labelled image must have same file name and size of the image to get pair.
