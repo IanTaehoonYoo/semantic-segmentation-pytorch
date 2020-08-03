@@ -64,9 +64,11 @@ This project supports models as follow:
 
 Example results of the pspnet_mobilenet_v2 model:
 
-Input Image            |  Output Segmentation Image
-:-------------------------:|:-------------------------:
-![](segmentation\test\exam_result\input.jpg)  |  ![](segmentation\test\exam_result\output.png)
+Input Image            |  Ground Truth image    | Result Image      |
+:-------------------------:|:-------------------------:|:-------------------------:|
+![](segmentation\test\exam_result\input1.png)  |  ![](segmentation\test\exam_result\ground_truth1.png)  |  ![](segmentation\test\exam_result\result1.png)
+![](segmentation\test\exam_result\input2.png)  |  ![](segmentation\test\exam_result\ground_truth2.png)  |  ![](segmentation\test\exam_result\result2.png)
+
 ## Requirements
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
