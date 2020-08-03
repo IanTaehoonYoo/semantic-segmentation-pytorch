@@ -10,6 +10,7 @@ from __future__ import absolute_import, division, print_function
 import torch
 import torch.nn.functional as F
 from ..encoders.squeeze_extractor import *
+from .model_utils import *
 
 class PSPModule(nn.Module):
     def __init__(self, in_channels, out_channels=1024, pool_factors=(1, 2, 3, 6), batch_norm=True):
@@ -132,6 +133,7 @@ class PSPnet(torch.nn.Module):
         cy = int((o.shape[2] - x.shape[2]) / 2)
         o = o[:, :, cy:cy + x.shape[2], cx:cx + x.shape[3]]
         o = self.classifier(o)
+        set_segmentation_model_params(self, x.shape[3], x.shape[2])
 
         return o
 

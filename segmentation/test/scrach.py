@@ -4,6 +4,7 @@ from torchvision import transforms
 from segmentation.data_loader.segmentation_dataset import SegmentationDataset
 from segmentation.data_loader.transform import Rescale, ToTensor
 from segmentation.trainer import Trainer
+from segmentation.predict import *
 from segmentation.models import all_models
 from util.logger import Logger
 
@@ -17,7 +18,7 @@ if __name__ == '__main__':
     device = 'cuda'
     batch_size = 4
     n_classes = 34
-    num_epochs = 300
+    num_epochs = 10
     image_axis_minimum_size = 200
     pretrained = True
     fixed_feature = False
@@ -61,5 +62,10 @@ if __name__ == '__main__':
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
     trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
     trainer.train()
+
+
+    # write predict result.
+    predict(model, r'dataset/cityspaces/input.png',
+             r'dataset/cityspaces/output.png')
 
 

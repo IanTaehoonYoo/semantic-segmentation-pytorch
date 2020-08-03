@@ -12,6 +12,18 @@ import random
 import cv2
 import torch
 import numpy as np
+import os
+import pathlib
+
+def parent(path):
+	path = pathlib.Path(path)
+	return str(path.parent)
+
+def exist(path):
+	return os.path.exists(str(path))
+
+def mkdir(path):
+	pathlib.Path(path).mkdir(parents=True, exist_ok=True)
 
 random.seed(0)
 class_colors = [(random.randint(0, 255), random.randint(
@@ -58,6 +70,9 @@ def predict(model, input_name, output_name, colors=class_colors):
 
 	if model_width != ori_width or model_height != ori_height:
 		seg_img = cv2.resize(seg_img, (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
+
+	if not exist(parent(output_name)):
+		mkdir(parent(output_name))
 
 	cv2.imwrite(output_name, seg_img)
 
