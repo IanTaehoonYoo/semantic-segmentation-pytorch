@@ -4,7 +4,7 @@
 
 Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
 
-These are the reference implementation fo the models.
+These are the reference implementation of the models.
 - FCN (Fully Convolutional Networks for Sementic Segmentation) [[Paper]](https://arxiv.org/abs/1411.4038)
 - UNet (Convolutional Networks for Biomedical Image Segmentation) [[Paper]](https://arxiv.org/abs/1505.04597)
 - PSPNet (Pyramid Scene Parsing Network) [[Paper]](https://arxiv.org/abs/1612.01105)
@@ -74,16 +74,16 @@ Input Image            |  Ground Truth image    | Result Image      |
 ![](exam_result/input1.png)  |  ![](exam_result/ground_truth1.png)  |  ![](exam_result/result1.png)
 ![](exam_result/input2.png)  |  ![](exam_result/ground_truth2.png)  |  ![](exam_result/result2.png)
 
-## Requirements
+## Getting Started
+
+### Requirements
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
 - [torchvision](https://github.com/pytorch/vision) >= 0.6.0
 - opencv-python
 - [tqdm](https://github.com/tqdm/tqdm)
 
-### Getting Started
-
-## Installation
+### Installation
 
 ```shell
 pip install seg-torch
@@ -96,4 +96,117 @@ git clone https://github.com/IanTaehoonYoo/semantic-segmentation-pytorch/
 cd semantic-segmentation-pytorch
 python setup.py install
 ```
+### Preparing the data for training
 
+In this project, the data for training is the [[Cityspaces]](http://https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using other dataset, please refer to the dataset format as bellow.
+
+1. There are two folders which are the training images folder and the groundtruth labeled images folder.
+2. The training image and the labelled image must have same file name and size of the image to get pair.
+3. The training image must be the RGB image, and labeled image should have the class value, the range [0, n_classes]
+
+### Example code to use this project with python
+
+```python
+import torch
+from torchvision import transforms
+
+from segmentation.data_loader.segmentation_dataset import SegmentationDataset
+from segmentation.data_loader.transform import Rescale, ToTensor
+from segmentation.trainer import Trainer
+from segmentation.models import all_models
+from util.logger import Logger
+
+train_images = r'dataset/cityspaces/images/train'
+test_images = r'dataset/cityspaces/images/test'
+train_labled = r'dataset/cityspaces/labeled/train'
+test_labeled = r'dataset/cityspaces/labeled/test'
+
+if __name__ == '__main__':
+    model_name = "fcn8_vgg16"
+    device = 'cuda'
+    batch_size = 4
+    n_classes = 34
+    num_epochs = 300
+    image_axis_minimum_size = 200
+    pretrained = True
+    fixed_feature = False
+
+    logger = Logger(model_name=model_name, data_name='example')
+
+    # Loader
+    compose = transforms.Compose([
+        Rescale(image_axis_minimum_size),
+        ToTensor()
+         ])
+
+    train_datasets = SegmentationDataset(train_images, train_labled, n_classes, compose)
+    train_loader = torch.utils.data.DataLoader(train_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
+
+    test_datasets = SegmentationDataset(test_images, test_labeled, n_classes, compose)
+    test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
+
+    # Model
+    batch_norm = False if batch_size == 1 else True
+    model = all_models.model_from_name[model_name](n_classes,
+                                                   batch_norm=batch_norm,
+                                                   pretrained=pretrained,
+                                                   fixed_feature=fixed_feature)
+    model.to(device)
+
+    # Optimizers
+    if pretrained and fixed_feature: #fine-tunning
+        params_to_update = model.parameters()
+        print("Params to learn:")
+        params_to_update = []
+        for name, param in model.named_parameters():
+            if param.requires_grad == True:
+                params_to_update.append(param)
+                print("\t", name)
+        optimizer = torch.optim.Adadelta(params_to_update)
+    else:
+        optimizer = torch.optim.Adadelta(model.parameters())
+
+    # Train
+    #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
+    trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
+    trainer.train()
+```
+
+### Pre-trained models (Encoder models)
+
+This project uses pre-trained models such as VGG, ResNet and MobileNet from the torchvision library. If you want fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling model. And then you should set optimizer to freeze model like as follow.
+
+```python
+    model = all_models.model_from_name[model_name](n_classes,
+                                                   batch_norm=batch_norm,
+                                                   pretrained=pretrained,
+                                                   fixed_feature=fixed_feature)
+                                                   
+    # Optimizers
+    if pretrained and fixed_feature: #fine-tunning
+        params_to_update = model.parameters()
+        print("Params to learn:")
+        params_to_update = []
+        for name, param in model.named_parameters():
+            if param.requires_grad == True:
+                params_to_update.append(param)
+                print("\t", name)
+        optimizer = torch.optim.Adadelta(params_to_update)
+    else:
+        optimizer = torch.optim.Adadelta(model.parameters())
+```
+
+### Getting the learning result on Tensorboard .
+
+The Logger class is to write the result such as mean IoU, accuracy, loss, and predict labeled images. The logger class gets the model name and the data name. So, it can generate the tensorboard files automatically in the runs folder, .\segmentation\runs\..
+Here is example command to see the result, [tensorboard --logdir=%project_path\segmentation\runs --host localhost]
+If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www.tensorflow.org/tensorboard/get_started)
+
+## Cite This Project
+If you find this code useful, please consider the following BibTeX entry.
+@misc{seg-pytorch,
+  author =       {Ian Yoo},
+  title =        {{sementic-segmentation-pytorch: Pytorch implementation of FCN, UNet, PSPNet and various encoder models}},
+  howpublished = {\url{https://github.com/IanTaehoonYoo/semantic-segmentation-pytorch}},
+  year =         {2020}
+}
