@@ -79,7 +79,8 @@ Input Image            |  Ground Truth Image    | Result Image      |
 ### Requirements
 
 - [pytorch](https://github.com/pytorch/pytorch) >= 1.5.0
-- [torchvision](https://github.com/pytorch/vision) >= 0.6.0
+- [torchvision](https://github.com/pytorch/vision) >= 0.5.0
+- [TensorboardX](https://github.com/lanpa/tensorboardX) >= 0.2.0
 - opencv-python
 - [tqdm](https://github.com/tqdm/tqdm)
 
