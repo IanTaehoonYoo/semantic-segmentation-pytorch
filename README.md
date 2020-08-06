@@ -220,7 +220,7 @@ If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www
 
 ### Saving and loading check points
 
-The trainer class can save the check point automatically depends on argument is called 'check_point_epoch_stride'. So check points will be saved for each epoch stride in the runs folder, ./segmentation/runs/models.
+The trainer class can save the check point automatically depends on argument is called 'check_point_epoch_stride'. So check points will be saved for every epoch stride in the runs folder, ./segmentation/runs/models.
 
 Also, you can load the check point using the logger class. Here are example codes, please refer to as bellow.
 
