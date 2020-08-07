@@ -26,8 +26,7 @@ class SqueezeExtractor(nn.Module):
 	def get_copy_feature_info(self):
 		"""
 		Get [CopyFeatureInfo] when sampling such as maxpooling or conv2d which has the 2x2 stride.
-		:param is_before_feature: if true, get right before feature info when down-sampling.
-		:return: list. [FeatureInfo]
+		:return: list. [CopyFeatureInfo]
 		"""
 		raise NotImplementedError()
 
