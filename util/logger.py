@@ -236,20 +236,20 @@ class Logger:
 				attr_copy = copy.deepcopy(getattr(self.hdl_chkpoint, k))
 				setattr(model, k, attr_copy)
 
-	def load_model_and_optimizer(self, model, optim, file_name):
-		dir = './runs/models/{}'.format(self.data_subdir)
-		assert Logger._exist(dir)
-
-		self.hdl_chkpoint = self.hdl_chkpoint.load_checkpoint('{}/{}'.format(dir, file_name))
-
-		model.load_state_dict(self.hdl_chkpoint.model_state_dict)
-		optim.load_state_dict(self.hdl_chkpoint.optimizer_state_dict)
-		if hasattr(self.hdl_chkpoint, '__dict__'):
-			for k in self.hdl_chkpoint.__dict__:
-				if k == 'model_state_dict' or k == 'optimizer_state_dict':
-					continue
-				attr_copy = copy.deepcopy(getattr(self.hdl_chkpoint, k))
-				setattr(model, k, attr_copy)
+	# def load_model_and_optimizer(self, model, optim, file_name):
+	# 	dir = './runs/models/{}'.format(self.data_subdir)
+	# 	assert Logger._exist(dir)
+	#
+	# 	self.hdl_chkpoint = self.hdl_chkpoint.load_checkpoint('{}/{}'.format(dir, file_name))
+	#
+	# 	model.load_state_dict(self.hdl_chkpoint.model_state_dict)
+	# 	optim.load_state_dict(self.hdl_chkpoint.optimizer_state_dict)
+	# 	if hasattr(self.hdl_chkpoint, '__dict__'):
+	# 		for k in self.hdl_chkpoint.__dict__:
+	# 			if k == 'model_state_dict' or k == 'optimizer_state_dict':
+	# 				continue
+	# 			attr_copy = copy.deepcopy(getattr(self.hdl_chkpoint, k))
+	# 			setattr(model, k, attr_copy)
 
 	def close(self):
 		self.writer.close()
