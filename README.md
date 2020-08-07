@@ -239,7 +239,8 @@ check_point_stride = 30 # the checkpoint is saved for every 30 epochs.
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 trainer = Trainer(model, optimizer, logger, num_epochs,
-                      train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
+                      train_loader, test_loader,
+                      check_point_epoch_stride=check_point_stride)
 
 ```
 
