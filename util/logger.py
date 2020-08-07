@@ -16,7 +16,7 @@ from tensorboardX import SummaryWriter
 from matplotlib import pyplot as plt
 import pathlib
 import datetime
-from pytorch.util.checkpoint import *
+from util.checkpoint import *
 import copy
 
 class Logger:
