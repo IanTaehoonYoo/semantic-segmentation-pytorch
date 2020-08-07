@@ -230,7 +230,7 @@ Also, you can load the check point using the logger class. Here are example code
 Save check point.
 Please check the runs folder, ./segmentation/runs/models
 """
-check_point_stride = 30 # check points are saved for every 30 epochs.
+check_point_stride = 30 # the checkpoint is saved for every 30 epochs.
 
 trainer = Trainer(model, optimizer, logger, num_epochs,
                       train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
