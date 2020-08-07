@@ -151,7 +151,7 @@ if __name__ == '__main__':
     test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
 
     # Model
-    batch_norm = False if batch_size == 1 else True #if the batch size is one, batch normalize should be False.
+    batch_norm = False if batch_size == 1 else True #if the batch size is one, the batch normalized should be False.
     model = all_models.model_from_name[model_name](n_classes,
                                                    batch_norm=batch_norm,
                                                    pretrained=pretrained,
