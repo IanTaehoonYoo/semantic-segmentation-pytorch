@@ -45,6 +45,9 @@ if __name__ == '__main__':
                                                    fixed_feature=fixed_feature)
     model.to(device)
 
+    #Load model
+    #logger.load_models(model, 'epoch_15') #please check the foloder: (.segmentation/test/runs/models)
+
     # Optimizers
     if pretrained and fixed_feature: #fine tunning
         params_to_update = model.parameters()
