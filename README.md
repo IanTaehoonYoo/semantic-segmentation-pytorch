@@ -243,7 +243,7 @@ n_classes = 33
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 model = all_models.model_from_name[model_name](n_classes)
-logger.load_models(model, 'epoch_253')                      
+logger.load_model(model, 'epoch_253')                      
 ```
 
 ## Cite This Project
