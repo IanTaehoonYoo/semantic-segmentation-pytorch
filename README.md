@@ -49,7 +49,7 @@ This project supports models as follow:
 | fcn8_mobilenet_v2   | MobileNet-v2        | FCN8                |
 | fcn16_mobilenet_v2  | MobileNet-v2        | FCN16               |
 | fcn32_mobilenet_v2  | MobileNet-v2        | FCN32               |
-| unet                | None                | Unet                |
+| unet                | Unet                | Unet                |
 | unet_vgg11          | VGG11               | Unet                |
 | unet_vgg13          | VGG13               | Unet                |
 | unet_vgg16          | VGG16               | Unet                |
@@ -151,7 +151,7 @@ if __name__ == '__main__':
     test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
 
     # Model
-    batch_norm = False if batch_size == 1 else True
+    batch_norm = False if batch_size == 1 else True #if the batch size is one, the batch normalized should be False.
     model = all_models.model_from_name[model_name](n_classes,
                                                    batch_norm=batch_norm,
                                                    pretrained=pretrained,
@@ -230,20 +230,29 @@ Also, you can load the check point using the logger class. Here are example code
 Save check point.
 Please check the runs folder, ./segmentation/runs/models
 """
-check_point_stride = 30 # check points are saved for every 30 epochs.
+check_point_stride = 30 # the checkpoint is saved for every 30 epochs.
+
+#'model_name' and 'data_name' are to set a path to save the check point. 
+# So you should set the same the Logger's arguemnts when you load the check point.
+logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 trainer = Trainer(model, optimizer, logger, num_epochs,
                       train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
 
+```
+
+```python
 """
 Load check point.
 """
 model_name = "pspnet_mobilenet_v2"
 n_classes = 33
+
+# The Logger's arguemnts should be the same as when you train the model.
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 model = all_models.model_from_name[model_name](n_classes)
-logger.load_models(model, 'epoch_253')                      
+logger.load_model(model, 'epoch_253')                      
 ```
 
 ## Cite This Project
