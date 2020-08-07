@@ -1,4 +1,3 @@
-import torch
 from torchvision import transforms
 
 from segmentation.data_loader.segmentation_dataset import SegmentationDataset
@@ -25,7 +24,7 @@ if __name__ == '__main__':
 
     logger = Logger(model_name=model_name, data_name='example')
 
-    # Loader
+    ### Loader
     compose = transforms.Compose([
         Rescale(image_axis_minimum_size),
         ToTensor()
@@ -37,7 +36,7 @@ if __name__ == '__main__':
     test_datasets = SegmentationDataset(test_images, test_labeled, n_classes, compose)
     test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
 
-    # Model
+    ### Model
     batch_norm = False if batch_size == 1 else True
     model = all_models.model_from_name[model_name](n_classes,
                                                    batch_norm=batch_norm,
@@ -45,10 +44,11 @@ if __name__ == '__main__':
                                                    fixed_feature=fixed_feature)
     model.to(device)
 
-    #Load model
-    #logger.load_model(model, 'epoch_15') #please check the foloder: (.segmentation/test/runs/models)
+    ###Load model
+    ###please check the foloder: (.segmentation/test/runs/models)
+    #logger.load_model(model, 'epoch_15')
 
-    # Optimizers
+    ### Optimizers
     if pretrained and fixed_feature: #fine tunning
         params_to_update = model.parameters()
         print("Params to learn:")
@@ -61,13 +61,13 @@ if __name__ == '__main__':
     else:
         optimizer = torch.optim.Adadelta(model.parameters())
 
-    # Train
+    ### Train
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
     trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
     trainer.train()
 
 
-    # write predict result.
+    #### Writing the predict result.
     predict(model, r'dataset/cityspaces/input.png',
              r'dataset/cityspaces/output.png')
 
