@@ -151,6 +151,9 @@ class Trainer(object):
             self.logger.store_checkpoint_var('img_width', data.shape[3])
             self.logger.store_checkpoint_var('img_height', data.shape[2])
 
+            self.model.img_width = data.shape[3]
+            self.model.img_height = data.shape[2]
+
             #write logs to Tensorboard.
             lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]
             lbl_true = target.data.cpu().numpy()

@@ -37,9 +37,7 @@ if __name__ == '__main__':
     test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
 
     ### Model
-    batch_norm = False if batch_size == 1 else True
-    model = all_models.model_from_name[model_name](n_classes,
-                                                   batch_norm=batch_norm,
+    model = all_models.model_from_name[model_name](n_classes, batch_size,
                                                    pretrained=pretrained,
                                                    fixed_feature=fixed_feature)
     model.to(device)

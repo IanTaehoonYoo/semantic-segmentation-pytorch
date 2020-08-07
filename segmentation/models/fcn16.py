@@ -70,37 +70,45 @@ from ..encoders.vgg import *
 from ..encoders.resnet import *
 from ..encoders.mobilenet import *
 
-def fcn16_vgg11(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    vgg = vgg_11(batch_norm, pretrained, fixed_feature)
-    return FCN16(n_classes, vgg)
-def fcn16_vgg13(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    vgg = vgg_13(batch_norm, pretrained, fixed_feature)
-    return FCN16(n_classes, vgg)
-def fcn16_vgg16(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    vgg = vgg_16(batch_norm, pretrained, fixed_feature)
-    return FCN16(n_classes, vgg)
-def fcn16_vgg19(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    vgg = vgg_19(batch_norm, pretrained, fixed_feature)
-    return FCN16(n_classes, vgg)
+def fcn16_vgg11(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	vgg = vgg_11(batch_norm, pretrained, fixed_feature)
+	return FCN16(n_classes, vgg)
+def fcn16_vgg13(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	vgg = vgg_13(batch_norm, pretrained, fixed_feature)
+	return FCN16(n_classes, vgg)
+def fcn16_vgg16(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	vgg = vgg_16(batch_norm, pretrained, fixed_feature)
+	return FCN16(n_classes, vgg)
+def fcn16_vgg19(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	vgg = vgg_19(batch_norm, pretrained, fixed_feature)
+	return FCN16(n_classes, vgg)
 
-def fcn16_resnet18(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    resnet = resnet18(pretrained, fixed_feature)
-    return FCN16(n_classes, resnet)
-def fcn16_resnet34(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    resnet = resnet34(pretrained, fixed_feature)
-    return FCN16(n_classes, resnet)
-def fcn16_resnet50(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    resnet = resnet50(pretrained, fixed_feature)
-    return FCN16(n_classes, resnet)
-def fcn16_resnet101(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    resnet = resnet101(pretrained, fixed_feature)
-    return FCN16(n_classes, resnet)
-def fcn16_resnet152(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    resnet = resnet152(pretrained, fixed_feature)
-    return FCN16(n_classes, resnet)
+def fcn16_resnet18(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	resnet = resnet18(pretrained, fixed_feature)
+	return FCN16(n_classes, resnet)
+def fcn16_resnet34(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	resnet = resnet34(pretrained, fixed_feature)
+	return FCN16(n_classes, resnet)
+def fcn16_resnet50(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	resnet = resnet50(pretrained, fixed_feature)
+	return FCN16(n_classes, resnet)
+def fcn16_resnet101(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	resnet = resnet101(pretrained, fixed_feature)
+	return FCN16(n_classes, resnet)
+def fcn16_resnet152(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	resnet = resnet152(pretrained, fixed_feature)
+	return FCN16(n_classes, resnet)
 
-def fcn16_mobilenet_v2(n_classes, batch_norm=True, pretrained=False, fixed_feature=True):
-    mobile_net = mobilenet(pretrained, fixed_feature)
-    return FCN16(n_classes, mobile_net)
-
-
+def fcn16_mobilenet_v2(n_classes, batch_size, pretrained=False, fixed_feature=True):
+	batch_norm = False if batch_size == 1 else True
+	mobile_net = mobilenet(pretrained, fixed_feature)
+	return FCN16(n_classes, mobile_net)
