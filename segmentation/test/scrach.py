@@ -46,7 +46,7 @@ if __name__ == '__main__':
     model.to(device)
 
     #Load model
-    #logger.load_models(model, 'epoch_15') #please check the foloder: (.segmentation/test/runs/models)
+    #logger.load_model(model, 'epoch_15') #please check the foloder: (.segmentation/test/runs/models)
 
     # Optimizers
     if pretrained and fixed_feature: #fine tunning
