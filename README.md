@@ -175,6 +175,10 @@ if __name__ == '__main__':
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
     trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
     trainer.train()
+    
+    # Writing a predicted result image.
+    predict(model, r'dataset/cityspaces/input.png',
+             r'dataset/cityspaces/output.png')
 ```
 
 ### Pre-trained models (Encoder models)
@@ -199,6 +203,7 @@ This project uses pre-trained models such as VGG, ResNet, and MobileNet from the
         optimizer = torch.optim.Adadelta(params_to_update)
     else:
         optimizer = torch.optim.Adadelta(model.parameters())
+        
 ```
 
 ### Getting the learning results on Tensorboard
@@ -212,6 +217,34 @@ tensorboard --logdir=%project_path\segmentation\runs --host localhost
 ```
 
 If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www.tensorflow.org/tensorboard/get_started)
+
+### Saving and loading check points
+
+The trainer class can save the check point automatically depends on argument is called 'check_point_epoch_stride'. So check points will be saved for every epoch stride in the runs folder, ./segmentation/runs/models.
+
+Also, you can load the check point using the logger class. Here are example codes, please refer to as bellow.
+
+```python
+
+"""
+Save check point.
+Please check the runs folder, ./segmentation/runs/models
+"""
+check_point_stride = 30 # check points are saved for every 30 epochs.
+
+trainer = Trainer(model, optimizer, logger, num_epochs,
+                      train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
+
+"""
+Load check point.
+"""
+model_name = "pspnet_mobilenet_v2"
+n_classes = 33
+logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
+
+model = all_models.model_from_name[model_name](n_classes)
+logger.load_models(model, 'epoch_253')                      
+```
 
 ## Cite This Project
 If you find this code useful, please consider the following BibTeX entry.
