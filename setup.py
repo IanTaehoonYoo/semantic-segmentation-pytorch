@@ -17,7 +17,7 @@ def get_long_description():
         return long_description
 
 setup(name="seg_torch",
-      version="0.1.2",
+      version="0.1.4",
       description="Semantic Segmentation with Pytorch",
       long_description=get_long_description(),
       long_description_content_type='text/markdown',
