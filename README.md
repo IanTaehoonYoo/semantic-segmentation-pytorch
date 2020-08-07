@@ -232,6 +232,10 @@ Please check the runs folder, ./segmentation/runs/models
 """
 check_point_stride = 30 # the checkpoint is saved for every 30 epochs.
 
+#'model_name' and 'data_name' are to set a path to save the check point. 
+# So you should set the same the Logger's arguemnts when you load the check point.
+logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
+
 trainer = Trainer(model, optimizer, logger, num_epochs,
                       train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
 
@@ -243,6 +247,8 @@ Load check point.
 """
 model_name = "pspnet_mobilenet_v2"
 n_classes = 33
+
+# The Logger's arguemnts should be the same as when you train the model.
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 model = all_models.model_from_name[model_name](n_classes)
