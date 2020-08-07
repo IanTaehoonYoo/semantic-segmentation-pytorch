@@ -14,6 +14,7 @@ import torch
 import numpy as np
 import os
 import pathlib
+import six
 
 def parent(path):
 	path = pathlib.Path(path)
@@ -29,10 +30,51 @@ random.seed(0)
 class_colors = [(random.randint(0, 255), random.randint(
     0, 255), random.randint(0, 255)) for _ in range(5000)]
 
-def predict(model, input_name, output_name, colors=class_colors):
+def convert_seg_gray_to_color(input, n_classes, output_path=None, colors=class_colors):
+	"""
+	Convert the segmented image on gray to color.
+
+	:param input: it is available to get two type(ndarray, string), string type is a file path.
+	:param n_classes: number of the classes.
+	:param output_path: output path. if it is None, this function return result array(ndarray)
+	:param colors: refer to 'class_colors' format. Default: random assigned color.
+	:return: if out_path is None, return result array(ndarray)
+	"""
+	if isinstance(input, six.string_types):
+		seg = cv2.imread(input, flags=cv2.IMREAD_GRAYSCALE)
+	elif type(input) is np.ndarray:
+		assert len(input.shape) == 2, "Input should be h,w "
+		seg = input
+
+	height = seg.shape[0]
+	width = seg.shape[1]
+
+	seg_img = np.zeros((height, width, 3))
+
+	for c in range(n_classes):
+		seg_arr = seg[:, :] == c
+		seg_img[:, :, 0] += ((seg_arr) * colors[c][0]).astype('uint8')
+		seg_img[:, :, 1] += ((seg_arr) * colors[c][1]).astype('uint8')
+		seg_img[:, :, 2] += ((seg_arr) * colors[c][2]).astype('uint8')
+
+	if output_path:
+		cv2.imwrite(output_path, seg_img)
+	else:
+		return seg_img
+
+def predict(model, input_path, output_path, colors=class_colors):
+	"""
+	This function can save a predicted result on the color from the trained model.
+
+	:param model: a network model.
+	:param input_path: the input file path.
+	:param output_path: the output file path.
+	:param colors: refer to 'class_colors' format. Default: random assigned color.
+	:return: model result.
+	"""
 	model.eval()
 
-	img = cv2.imread(input_name, flags=cv2.IMREAD_COLOR)
+	img = cv2.imread(input_path, flags=cv2.IMREAD_COLOR)
 	ori_height = img.shape[0]
 	ori_width = img.shape[1]
 
@@ -57,23 +99,16 @@ def predict(model, input_name, output_name, colors=class_colors):
 	lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]
 	lbl_pred = lbl_pred.transpose((1, 2, 0))
 	n_classes = np.max(lbl_pred)
+	lbl_pred = lbl_pred.reshape(model_height, model_width)
 
-	seg_img = np.zeros((model_height, model_width, 3))
-
-	for c in range(n_classes):
-		seg_arr = lbl_pred[:, :] == c
-		seg_arr = seg_arr.reshape(model_height, model_width)
-		seg_img[:, :, 0] += ((seg_arr)* colors[c][0]).astype('uint8')
-		seg_img[:, :, 1] += ((seg_arr) * colors[c][1]).astype('uint8')
-		seg_img[:, :, 2] += ((seg_arr) * colors[c][2]).astype('uint8')
-
+	seg_img = convert_seg_gray_to_color(lbl_pred, n_classes, colors=colors)
 
 	if model_width != ori_width or model_height != ori_height:
 		seg_img = cv2.resize(seg_img, (ori_width, ori_height), interpolation=cv2.INTER_NEAREST)
 
-	if not exist(parent(output_name)):
-		mkdir(parent(output_name))
+	if not exist(parent(output_path)):
+		mkdir(parent(output_path))
 
-	cv2.imwrite(output_name, seg_img)
+	cv2.imwrite(output_path, seg_img)
 
 	return score

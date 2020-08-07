@@ -9,7 +9,6 @@ from __future__ import absolute_import, division, print_function
 
 import torch
 from ..encoders.squeeze_extractor import *
-from .model_utils import *
 
 class UnetWithEncoder(torch.nn.Module):
 
@@ -138,8 +137,6 @@ class UnetWithEncoder(torch.nn.Module):
         o = self.up_layer4(o)
         o = self.classifier(o)
 
-        set_segmentation_model_params(self, x.shape[3], x.shape[2])
-
         return o
 
 cfgs = {
@@ -206,7 +203,6 @@ class Unet(torch.nn.Module):
         cy = int((o.shape[2] - x.shape[2]) / 2)
         o = o[:, :, cy:cy + x.shape[2], cx:cx + x.shape[3]]
         o = self.classifier(o)
-        set_segmentation_model_params(self, x.shape[3], x.shape[2])
 
         return o
 

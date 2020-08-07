@@ -94,7 +94,10 @@ class Trainer(object):
 
             # model checkpoints
             if epoch%self.check_point_step == 0:
-                self.logger.save_models(self.model, 'epoch_{}'.format(epoch))
+                self.logger.save_model_and_optimizer(self.model,
+                                                     self.optim,
+                                                     'epoch_{}'.format(epoch))
+
 
 
     def evaluate(self):
@@ -144,6 +147,9 @@ class Trainer(object):
 
             if n_batch%self.log_batch_stride != 0:
                 continue
+
+            self.logger.store_checkpoint_var('img_width', data.shape[3])
+            self.logger.store_checkpoint_var('img_height', data.shape[2])
 
             #write logs to Tensorboard.
             lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]

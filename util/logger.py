@@ -14,9 +14,10 @@ import errno
 import torchvision.utils as vutils
 from tensorboardX import SummaryWriter
 from matplotlib import pyplot as plt
-import torch
 import pathlib
 import datetime
+from pytorch.util.checkpoint import *
+import copy
 
 class Logger:
 
@@ -31,6 +32,8 @@ class Logger:
 
 		train_log_dir = r'runs/' + current_time + self.comment + r'/train'
 		test_log_dir = r'runs/' + current_time + self.comment + r'/test'
+
+		self.hdl_chkpoint = CheckpointHandler()
 
 		# TensorBoard
 		self.writer_train = SummaryWriter(train_log_dir, comment=self.comment)
@@ -202,19 +205,51 @@ class Logger:
 			fig.savefig('{}/epoch_{}_batch_{}.png'.format(out_dir, comment, epoch, n_batch))
 		plt.close()
 
-	def save_models(self, model, file_name):
+	def store_checkpoint_var(self, key, value):
+		self.hdl_chkpoint.store_var(key, value)
+
+	def save_model(self, model, file_name):
 		out_dir = './runs/models/{}'.format(self.data_subdir)
 		if not Logger._exist(out_dir):
 			Logger._make_dir(out_dir)
 
-		torch.save(model.state_dict(),
-				   '{}/{}'.format(out_dir, file_name))
+		self.hdl_chkpoint.save_checkpoint('{}/{}'.format(out_dir, file_name))
 
-	def load_models(self, model, file_name):
+	def save_model_and_optimizer(self, model, optim, file_name):
+		out_dir = './runs/models/{}'.format(self.data_subdir)
+		if not Logger._exist(out_dir):
+			Logger._make_dir(out_dir)
+
+		self.hdl_chkpoint.save_checkpoint('{}/{}'.format(out_dir, file_name), model, optim)
+
+	def load_model(self, model, file_name):
 		dir = './runs/models/{}'.format(self.data_subdir)
 		assert Logger._exist(dir)
 
-		model.load_state_dict(torch.load('{}/{}'.format(dir, file_name)))
+		self.hdl_chkpoint = self.hdl_chkpoint.load_checkpoint('{}/{}'.format(dir, file_name))
+
+		model.load_state_dict(self.hdl_chkpoint.model_state_dict)
+		if hasattr(self.hdl_chkpoint, '__dict__'):
+			for k in self.hdl_chkpoint.__dict__:
+				if k == 'model_state_dict' or k == 'optimizer_state_dict':
+					continue
+				attr_copy = copy.deepcopy(getattr(self.hdl_chkpoint, k))
+				setattr(model, k, attr_copy)
+
+	def load_model_and_optimizer(self, model, optim, file_name):
+		dir = './runs/models/{}'.format(self.data_subdir)
+		assert Logger._exist(dir)
+
+		self.hdl_chkpoint = self.hdl_chkpoint.load_checkpoint('{}/{}'.format(dir, file_name))
+
+		model.load_state_dict(self.hdl_chkpoint.model_state_dict)
+		optim.load_state_dict(self.hdl_chkpoint.optimizer_state_dict)
+		if hasattr(self.hdl_chkpoint, '__dict__'):
+			for k in self.hdl_chkpoint.__dict__:
+				if k == 'model_state_dict' or k == 'optimizer_state_dict':
+					continue
+				attr_copy = copy.deepcopy(getattr(self.hdl_chkpoint, k))
+				setattr(model, k, attr_copy)
 
 	def close(self):
 		self.writer.close()

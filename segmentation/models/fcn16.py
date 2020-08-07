@@ -9,7 +9,6 @@ from __future__ import absolute_import, division, print_function
 
 import torch
 from ..encoders.squeeze_extractor import *
-from .model_utils import *
 
 class FCN16(torch.nn.Module):
 
@@ -64,7 +63,6 @@ class FCN16(torch.nn.Module):
 		cx = int((o.shape[3] - x.shape[3]) / 2)
 		cy = int((o.shape[2] - x.shape[2]) / 2)
 		o = o[:, :, cy:cy + x.shape[2], cx:cx + x.shape[3]]
-		set_segmentation_model_params(self, x.shape[3], x.shape[2])
 
 		return o
 

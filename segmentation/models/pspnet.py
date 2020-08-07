@@ -10,7 +10,6 @@ from __future__ import absolute_import, division, print_function
 import torch
 import torch.nn.functional as F
 from ..encoders.squeeze_extractor import *
-from .model_utils import *
 
 class PSPModule(nn.Module):
     def __init__(self, in_channels, out_channels=1024, pool_factors=(1, 2, 3, 6), batch_norm=True):
@@ -23,7 +22,7 @@ class PSPModule(nn.Module):
         bottleneck = []
         bottleneck += [nn.Conv2d(in_channels * (len(pool_factors) + 1), out_channels, kernel_size=1)]
         if batch_norm:
-            bottleneck += nn.BatchNorm2d(out_channels)
+            bottleneck += [nn.BatchNorm2d(out_channels)]
         bottleneck += [nn.ReLU(inplace=True)]
         self.bottleneck = nn.Sequential(*bottleneck)
 
@@ -32,7 +31,7 @@ class PSPModule(nn.Module):
         spatial_block += [nn.AdaptiveAvgPool2d(output_size=(pool_factor, pool_factor))]
         spatial_block += [nn.Conv2d(in_channels, in_channels, kernel_size=1, bias=False)]
         if batch_norm:
-            spatial_block += nn.BatchNorm2d(in_channels)
+            spatial_block += [nn.BatchNorm2d(in_channels)]
         spatial_block += [nn.ReLU(inplace=True)]
 
         return nn.Sequential(*spatial_block)
@@ -63,7 +62,7 @@ class PSPUpsampling(nn.Module):
         layers = []
         layers += [nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1)]
         if batch_norm:
-            layers += nn.BatchNorm2d(out_channels)
+            layers += [nn.BatchNorm2d(out_channels)]
         layers += [nn.ReLU(inplace=True)]
         self.layer = nn.Sequential(*layers)
 
@@ -129,11 +128,8 @@ class PSPnet(torch.nn.Module):
         o = self.upsampling2(o)
         o = self.upsampling3(o)
 
-        cx = int((o.shape[3] - x.shape[3]) / 2)
-        cy = int((o.shape[2] - x.shape[2]) / 2)
-        o = o[:, :, cy:cy + x.shape[2], cx:cx + x.shape[3]]
+        o = F.upsample(o, size=(x.shape[2], x.shape[3]), mode='bilinear')
         o = self.classifier(o)
-        set_segmentation_model_params(self, x.shape[3], x.shape[2])
 
         return o
 
