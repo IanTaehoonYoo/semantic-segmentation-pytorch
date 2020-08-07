@@ -49,7 +49,7 @@ This project supports models as follow:
 | fcn8_mobilenet_v2   | MobileNet-v2        | FCN8                |
 | fcn16_mobilenet_v2  | MobileNet-v2        | FCN16               |
 | fcn32_mobilenet_v2  | MobileNet-v2        | FCN32               |
-| unet                | None                | Unet                |
+| unet                | Unet                | Unet                |
 | unet_vgg11          | VGG11               | Unet                |
 | unet_vgg13          | VGG13               | Unet                |
 | unet_vgg16          | VGG16               | Unet                |
