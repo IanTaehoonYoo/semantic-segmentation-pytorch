@@ -54,7 +54,7 @@ class UnetWithEncoder(torch.nn.Module):
 
     def _make_up_sampling(self, cfi_idx):
         if cfi_idx == -1:
-            in_channels = self._get_last_out_channels(self.features[:-1])
+            in_channels = self._get_last_out_channels(self.features)
         else:
             in_channels = self.copy_feature_info[cfi_idx + 1].out_channels
 
