@@ -168,7 +168,7 @@ class Trainer(object):
 
             #write result images when starting epoch.
             if n_batch == 0:
-                log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx', normalize_uint8=True)
+                log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx')
                 log_img = self.logger.concatenate_images([log_img, data.cpu().numpy()[:, :, :, :]])
                 self.logger.log_images_train(log_img, self.epoch, n_batch, num_batches,
                                              nrows=data.shape[0])
@@ -213,7 +213,7 @@ class Trainer(object):
         self.logger.log_test(fwavacc, 'fwavacc', self.epoch, n_batch, num_batches)
 
         if n_batch == 0:
-            log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx', normalize_uint8=True)
+            log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx')
             log_img = self.logger.concatenate_images([log_img, data.cpu().numpy()[:, :, :, :]])
             self.logger.log_images_test(log_img, self.epoch, n_batch, num_batches,
                                         nrows=data.shape[0])
@@ -222,6 +222,6 @@ class Trainer(object):
         lbl_pred = score.data.max(1)[1].cpu().numpy()[:, :, :]
         lbl_true = target.data.cpu().numpy()
 
-        log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx', normalize_uint8=True)
+        log_img = self.logger.concatenate_images([lbl_pred, lbl_true], input_axis='byx')
         log_img = self.logger.concatenate_images([log_img, input_img.cpu().numpy()[:, :, :, :]])
         self.logger.log_images(log_img, self.epoch, n_batch, num_batches, nrows=log_img.shape[0])
