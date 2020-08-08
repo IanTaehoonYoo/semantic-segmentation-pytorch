@@ -112,12 +112,12 @@ In this project, the data for training is the [[Cityspaces]](https://www.citysca
 ### Example code to use this project with python
 
 ```python
-import torch
 from torchvision import transforms
 
 from segmentation.data_loader.segmentation_dataset import SegmentationDataset
 from segmentation.data_loader.transform import Rescale, ToTensor
 from segmentation.trainer import Trainer
+from segmentation.predict import *
 from segmentation.models import all_models
 from util.logger import Logger
 
@@ -131,14 +131,14 @@ if __name__ == '__main__':
     device = 'cuda'
     batch_size = 4
     n_classes = 34
-    num_epochs = 300
+    num_epochs = 10
     image_axis_minimum_size = 200
     pretrained = True
     fixed_feature = False
 
     logger = Logger(model_name=model_name, data_name='example')
 
-    # Loader
+    ### Loader
     compose = transforms.Compose([
         Rescale(image_axis_minimum_size),
         ToTensor()
@@ -150,16 +150,18 @@ if __name__ == '__main__':
     test_datasets = SegmentationDataset(test_images, test_labeled, n_classes, compose)
     test_loader = torch.utils.data.DataLoader(test_datasets, batch_size=batch_size, shuffle=True, drop_last=True)
 
-    # Model
-    batch_norm = False if batch_size == 1 else True #if the batch size is one, the batch normalized should be False.
-    model = all_models.model_from_name[model_name](n_classes,
-                                                   batch_norm=batch_norm,
+    ### Model
+    model = all_models.model_from_name[model_name](n_classes, batch_size,
                                                    pretrained=pretrained,
                                                    fixed_feature=fixed_feature)
     model.to(device)
 
-    # Optimizers
-    if pretrained and fixed_feature: #fine-tunning
+    ###Load model
+    ###please check the foloder: (.segmentation/test/runs/models)
+    #logger.load_model(model, 'epoch_15')
+
+    ### Optimizers
+    if pretrained and fixed_feature: #fine tunning
         params_to_update = model.parameters()
         print("Params to learn:")
         params_to_update = []
@@ -171,12 +173,13 @@ if __name__ == '__main__':
     else:
         optimizer = torch.optim.Adadelta(model.parameters())
 
-    # Train
+    ### Train
     #scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.1)
     trainer = Trainer(model, optimizer, logger, num_epochs, train_loader, test_loader)
     trainer.train()
-    
-    # Writing a predicted result image.
+
+
+    #### Writing the predict result.
     predict(model, r'dataset/cityspaces/input.png',
              r'dataset/cityspaces/output.png')
 ```
@@ -186,8 +189,7 @@ if __name__ == '__main__':
 This project uses pre-trained models such as VGG, ResNet, and MobileNet from the torchvision library. If you want the fine-tunning model, you can change the input parameters which are 'pretrained' and 'fixed_feature' when calling a model. And then, you should set the optimizer to freeze the model like as follow.
 
 ```python
-    model = all_models.model_from_name[model_name](n_classes,
-                                                   batch_norm=batch_norm,
+    model = all_models.model_from_name[model_name](n_classes, batch_size,
                                                    pretrained=pretrained,
                                                    fixed_feature=fixed_feature)
                                                    
@@ -237,7 +239,8 @@ check_point_stride = 30 # the checkpoint is saved for every 30 epochs.
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
 trainer = Trainer(model, optimizer, logger, num_epochs,
-                      train_loader, test_loader, epoch=254, check_point_epoch_stride=check_point_stride)
+                      train_loader, test_loader,
+                      check_point_epoch_stride=check_point_stride)
 
 ```
 
@@ -245,13 +248,13 @@ trainer = Trainer(model, optimizer, logger, num_epochs,
 """
 Load check point.
 """
-model_name = "pspnet_mobilenet_v2"
 n_classes = 33
+batch_size = 4
 
 # The Logger's arguemnts should be the same as when you train the model.
 logger = Logger(model_name="pspnet_mobilenet_v2", data_name='example')
 
-model = all_models.model_from_name[model_name](n_classes)
+model = all_models.model_from_name[model_name](n_classes, batch_size)
 logger.load_model(model, 'epoch_253')                      
 ```
 
