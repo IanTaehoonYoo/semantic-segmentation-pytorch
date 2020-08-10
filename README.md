@@ -2,7 +2,7 @@
 
 [![PyPI Version](https://img.shields.io/pypi/v/seg-torch.svg)](https://pypi.org/project/seg-torch)
 
-Pytorch implementation of FCN, UNet, PSPNet and various encoder models.
+Pytorch implementation of FCN, UNet, PSPNet and various encoder models for the semantic segmentation.
 <p align="center">
       <img src="docs/Thumbnail.png">
       <br></br>
