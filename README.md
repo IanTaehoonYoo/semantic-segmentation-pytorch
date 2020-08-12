@@ -103,7 +103,7 @@ python setup.py install
 ```
 ### Preparing the data for training
 
-In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using another dataset, please refer to the dataset format as bellow.
+In this project, the data for training is the [[Cityspaces]](https://www.cityscapes-dataset.com/). You can run this project using the sample dataset in the segmentation/test/dataset/cityspaces folder. If you want to run this project using another dataset, please refer to the dataset format as below.
 
 1. There are two folders which are the training images folder and the groundtruth labeled images folder.
 2. The training image and the labeled image must have the same file name and size.
@@ -220,11 +220,11 @@ tensorboard --logdir=%project_path\segmentation\runs --host localhost
 
 If you don't know about Tensorboard, please refer to [[Tensorboard]](https://www.tensorflow.org/tensorboard/get_started)
 
-### Saving and loading check points
+### Saving and loading the check points
 
 The trainer class can save the check point automatically depends on argument is called 'check_point_epoch_stride'. So check points will be saved for every epoch stride in the runs folder, ./segmentation/runs/models.
 
-Also, you can load the check point using the logger class. Here are example codes, please refer to as bellow.
+Also, you can load the check point using the logger class. Here are example codes, please refer to as below.
 
 ```python
 
