@@ -17,7 +17,7 @@ These are the reference implementation of the models.
 
 This project supports models as follow:
 
-| model name          | encoder model       | decoder model       |
+| model name          | backbone model       | decoder model       |
 |:-------------------:|:-------------------:|:-------------------:|
 | fcn8_vgg11          | VGG 11              | FCN8                |
 | fcn8_vgg13          | VGG 13              | FCN8                |
